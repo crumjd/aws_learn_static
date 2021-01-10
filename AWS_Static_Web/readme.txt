@@ -1,1 +1,0 @@
-This is a simple test project for static webpages using AWS.
