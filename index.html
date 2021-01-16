@@ -1,9 +1,50 @@
 <!DOCTYPE html>
 <html>
+<head>
+</head>
 <body>
 
 <h1>AWS STATIC TEST</h1>
-<p>Hello world! (More literally than usual in this case...)</p>
+<p>This is a test of an AWS Static Webpage.  It is based off of the github project <a href="https://github.com/crumjd/aws_learn_static">here</a>.  Its not much to look at, is it?  Honestly, I just don't have any projects that require a website at the moment. So, at the moment, I'll be doing tutorials and problems on HackerRank and putting them here with an "engenearing UI" and a breif explanation of the technology that went into them.</p>
+<p>I'll also be trying to come up with something I want to make look pretty.</p>
+<p>The exercises:</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script>
+function postCalc() {
+  var params = {}
+  params.a = $('#operand1').val();
+  params.b = $('#operand2').val();
+  params.op = $('#operation').find(":selected").text();
+  
+  $.post( "https://42ar7wjyc6.execute-api.us-east-2.amazonaws.com/test/calc", params)
+  .done(function( data ) {
+    alert( "Data Loaded: " + data.c );
+  });
+}
+</script>
+<table style="width:100%">
+  <tr>
+    <th>(Really) Simple Calculator</th>
+  </tr>
+  <tr>
+    <td>Instructions</td>
+    <td>Inputs</td>
+  </tr>
+  <tr>
+    <td>
+    	<input type="number" id="operand1">
+    	<select \id="operation">
+	  <option value="+">+</option>
+	  <option value="-">-</option>
+	  <option value="*">*</option>
+	  <option value="/">/</option>
+	</select>
+    	<input type="number" id="operand2">
+    	 <input type="button" value="=" onclick="postCalc()">
+    	<input type="number" id="result">
+    </td>
+  </tr>
+  
 </body>
 </html>
