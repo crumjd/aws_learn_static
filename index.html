@@ -13,13 +13,22 @@
 <script>
 function postCalc() {
   var params = {}
-  params.a = $('#operand1').val();
-  params.b = $('#operand2').val();
-  params.op = $('#operation').find(":selected").text();
+  params.operand1 = $('#operand1').val();
+  params.operand2 = $('#operand2').val();
+  params.operator = $('#operation').find(":selected").text();
   
-  $.post( "https://42ar7wjyc6.execute-api.us-east-2.amazonaws.com/test/calc", params)
-  .done(function( data ) {
-    alert( "Data Loaded: " + data.c );
+  $.ajax({
+    type: 'POST',
+    url: 'https://42ar7wjyc6.execute-api.us-east-2.amazonaws.com/test/calc',
+    data: params,
+    contentType:"application/json",
+    dataType:"json",
+    success: function(responseData, textStatus, jqXHR) {
+	alert( "Data Loaded: ");
+    },
+    error: function (responseData, textStatus, errorThrown) {
+        alert('POST failed.');
+    }
   });
 }
 </script>
@@ -34,7 +43,7 @@ function postCalc() {
   <tr>
     <td>
     	<input type="number" id="operand1">
-    	<select \id="operation">
+    	<select id="operation">
 	  <option value="+">+</option>
 	  <option value="-">-</option>
 	  <option value="*">*</option>
