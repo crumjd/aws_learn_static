@@ -20,7 +20,7 @@ function postCalc() {
   $.ajax({
     type: 'POST',
     url: 'https://42ar7wjyc6.execute-api.us-east-2.amazonaws.com/test/calc',
-    data: params,
+    data: { "a": 9, "b": 9, "op": "*"},
     contentType:"application/json",
     dataType:"json",
     success: function(responseData, textStatus, jqXHR) {
