@@ -13,18 +13,18 @@
 <script>
 function postCalc() {
   var params = {}
-  params.operand1 = $('#operand1').val();
-  params.operand2 = $('#operand2').val();
-  params.operator = $('#operation').find(":selected").text();
+  params.a = $('#operand1').val();
+  params.b = $('#operand2').val();
+  params.op = $('#operation').find(":selected").text();
   
   $.ajax({
     type: 'POST',
     url: 'https://42ar7wjyc6.execute-api.us-east-2.amazonaws.com/test/calc',
-    data: JSON.stringify({ "a": 9, "b": 9, "op": "*"}),
+    data: JSON.stringify(params),
     contentType:"application/json",
     dataType:"json",
     success: function(responseData, textStatus, jqXHR) {
-	alert( "Data Loaded: ");
+		$('#result').val(responseData.c)
     },
     error: function (responseData, textStatus, errorThrown) {
         alert('POST failed.');
@@ -32,13 +32,13 @@ function postCalc() {
   });
 }
 </script>
-<table style="width:100%">
+<table style="padding: 10px;">
   <tr>
-    <th>(Really) Simple Calculator</th>
+    <th style="text-align: left;">(Really) Simple Calculator</th>
   </tr>
   <tr>
-    <td>Instructions</td>
     <td>Inputs</td>
+    <td>Explanation</td>
   </tr>
   <tr>
     <td>
@@ -51,8 +51,20 @@ function postCalc() {
 	</select>
     	<input type="number" id="operand2">
     	 <input type="button" value="=" onclick="postCalc()">
-    	<input type="number" id="result">
+    	<input type="number" id="result" disabled>
     </td>
+    <td>
+		<p>This exercise is composed of:</p>
+	<ul>
+	<li>The form to the left and a JQuery based JavaScript that pulls the values and constructs a post call to a rest API.</li>
+	<li>A rest API which exposes two GET methods a POST method, and an OPTIONS method. One of GETs takes parameters and one interprets the call path for parameters. CORS is enabled for this API it has input checking</li>
+	<li>The API passes its data to a simple lambda written for the node.js v10 interpreter. Nothing in the code is terribly interesting, it's mostly just a switch wrapping four simple operations and the required callback architecture.</li>
+	<li>An IAM role for the operation of the lambda.</li>
+	</ul>
+    </td>
+	<p>This is all based on <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/integrating-api-with-aws-services-lambda.html">this</a> tutorial. I have modified it to interact with the static page and to enable CORS.  Over all, I feel like I understand the API definition the best (mainly because I spent so much time fiddling with CORS) and the execution role the least.</p>
+
+	</td>
   </tr>
   
 </body>
